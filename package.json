@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "create-component": "npx generate-react-cli component",
-    "create-page": "npx generate-react-cli component --type=page",
+    "create-page": "npx generate-react-cli component --type=page"
   },
   "eslintConfig": {
     "extends": [
