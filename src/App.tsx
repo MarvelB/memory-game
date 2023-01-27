@@ -14,7 +14,7 @@ const cardImages: Image[] = [
 
 function App() {
   const [cards, setCards] = useState<Card[]>([]);
-  const [turns, setTurns] = useState<Number>(0);
+  const [turns, setTurns] = useState<number>(0);
 
   const shuffleCards = (): void => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -30,6 +30,17 @@ function App() {
     <div className="App">
       <h1>Memory Game</h1>
       <button onClick={shuffleCards}>New Game</button>
+
+      <div className="card-grid">
+        {cards.map((card) => (
+          <div className="card" key={card.id}>
+            <div>
+              <img src={card.src} className="front" alt="card frond" height={198} width={200} />
+              <img src="/img/cover.png" className="back" alt="card back" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
