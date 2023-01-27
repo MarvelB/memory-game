@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "create-component": "npx generate-react-cli component",
+    "create-page": "npx generate-react-cli component --type=page",
   },
   "eslintConfig": {
     "extends": [
