@@ -16,6 +16,8 @@ const cardImages: Image[] = [
 function App() {
   const [cards, setCards] = useState<Card[]>([]);
   const [turns, setTurns] = useState<number>(0);
+  const [choiceOne, setChoiceOne] = useState<Card | null>(null);
+  const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
 
   const shuffleCards = (): void => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -26,6 +28,11 @@ function App() {
     setTurns(0);
   }
 
+  // Handle user choices
+  const handleChoice = (card: Card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  }
+
   return (
     <div className="App">
       <h1>Memory Game</h1>
@@ -33,7 +40,10 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard card={card} key={card.id} />
+          <SingleCard
+            card={card}
+            key={card.id}
+            handleChoice={handleChoice} />
         ))}
       </div>
     </div>
