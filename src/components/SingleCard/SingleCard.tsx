@@ -3,10 +3,11 @@ import './SingleCard.css';
 
 interface SingleCardProps {
   card: Card,
-  handleChoice: (card: Card) => void
+  handleChoice: (card: Card) => void,
+  reveal: boolean,
 }
 
-const SingleCard = ({ card, handleChoice }: SingleCardProps) => {
+const SingleCard = ({ card, handleChoice, reveal }: SingleCardProps) => {
 
   const handleClick = (card: Card) => {
     handleChoice(card);
@@ -14,7 +15,7 @@ const SingleCard = ({ card, handleChoice }: SingleCardProps) => {
 
   return (
     <div className="card">
-      <div>
+      <div className={reveal ? "flipped": ""}>
         <img src={card.src} className="front" alt="front of the card" height={198} width={200} />
         <img
           src="/img/cover.png"

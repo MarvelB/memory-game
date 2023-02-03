@@ -32,11 +32,14 @@ function App() {
             return card;
           });
         })
-      } else {
-        console.log("cards don't match");
-      }
 
-      restTurn();
+        restTurn();
+      } else {
+
+        setTimeout(() => {
+          restTurn();
+        }, 500);
+      }
     }
   }, [choiceOne, choiceTwo]);
 
@@ -72,7 +75,9 @@ function App() {
           <SingleCard
             card={card}
             key={card.id}
-            handleChoice={handleChoice} />
+            handleChoice={handleChoice}
+            reveal={card.id === choiceOne?.id || card.id === choiceTwo?.id || card.matched}
+          />
         ))}
       </div>
     </div>
