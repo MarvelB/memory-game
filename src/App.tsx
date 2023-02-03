@@ -46,11 +46,18 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
+  // Start a fresh new game automatically
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
   const shuffleCards = (): void => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random(), matched: false })) as Card[];
 
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
   }
@@ -83,6 +90,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
