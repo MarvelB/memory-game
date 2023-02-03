@@ -5,11 +5,15 @@ interface SingleCardProps {
   card: Card,
   handleChoice: (card: Card) => void,
   reveal: boolean,
+  disabled: boolean
 }
 
-const SingleCard = ({ card, handleChoice, reveal }: SingleCardProps) => {
+const SingleCard = ({ card, handleChoice, reveal, disabled }: SingleCardProps) => {
 
-  const handleClick = (card: Card) => {
+  const handleClick = () => {
+    if (disabled)
+      return;
+
     handleChoice(card);
   }
 
@@ -21,7 +25,7 @@ const SingleCard = ({ card, handleChoice, reveal }: SingleCardProps) => {
           src="/img/cover.png"
           className="back"
           alt="back of the card"
-          onClick={() => handleClick(card)} />
+          onClick={handleClick} />
       </div>
     </div>
   );

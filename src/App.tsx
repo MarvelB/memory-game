@@ -18,14 +18,17 @@ function App() {
   const [turns, setTurns] = useState<number>(0);
   const [choiceOne, setChoiceOne] = useState<Card | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   // Compare the selected cards by the user
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
+
       if (choiceOne.src === choiceTwo.src) {
         setCards(oldCards => {
           return oldCards.map(card => {
-            if (card.src === choiceOne.src) {
+            if (card.id === choiceOne.id || card.id === choiceTwo.id) {
               card = { ...card, matched: true };
             }
 
@@ -60,10 +63,9 @@ function App() {
   const restTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns(oldTurns => oldTurns + 1)
+    setTurns(oldTurns => oldTurns + 1);
+    setDisabled(false);
   }
-
-  console.log(cards);
 
   return (
     <div className="App">
@@ -76,6 +78,7 @@ function App() {
             card={card}
             key={card.id}
             handleChoice={handleChoice}
+            disabled={disabled}
             reveal={card.id === choiceOne?.id || card.id === choiceTwo?.id || card.matched}
           />
         ))}
