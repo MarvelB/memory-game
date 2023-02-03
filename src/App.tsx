@@ -23,7 +23,15 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log("cards match");
+        setCards(oldCards => {
+          return oldCards.map(card => {
+            if (card.src === choiceOne.src) {
+              card = { ...card, matched: true };
+            }
+
+            return card;
+          });
+        })
       } else {
         console.log("cards don't match");
       }
@@ -35,7 +43,7 @@ function App() {
   const shuffleCards = (): void => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card, id: Math.random() })) as Card[];
+      .map((card) => ({ ...card, id: Math.random(), matched: false })) as Card[];
 
     setCards(shuffledCards);
     setTurns(0);
@@ -51,6 +59,8 @@ function App() {
     setChoiceTwo(null);
     setTurns(oldTurns => oldTurns + 1)
   }
+
+  console.log(cards);
 
   return (
     <div className="App">
