@@ -1,5 +1,5 @@
 import SingleCard from 'components/SingleCard/SingleCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from 'types/card.model';
 import { Image } from 'types/image.model';
 import './App.css';
@@ -19,6 +19,19 @@ function App() {
   const [choiceOne, setChoiceOne] = useState<Card | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
 
+  // Compare the selected cards by the user
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("cards match");
+      } else {
+        console.log("cards don't match");
+      }
+
+      restTurn();
+    }
+  }, [choiceOne, choiceTwo]);
+
   const shuffleCards = (): void => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
@@ -31,6 +44,12 @@ function App() {
   // Handle user choices
   const handleChoice = (card: Card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  }
+
+  const restTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns(oldTurns => oldTurns + 1)
   }
 
   return (
